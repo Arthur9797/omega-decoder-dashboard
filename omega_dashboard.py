@@ -93,3 +93,28 @@ st.markdown("""
 - **I_bits**: Total information capacity of the observable universe, in bits.  
 - **Epoch & Fate**: Interprets Ω to classify the cosmic era and predict long-term evolution.
 """)
+
+# Particle masses (GeV)
+m_H = 125.1       # Higgs
+m_t = 173.0       # Top quark
+m_nu = 0.0001     # Neutrino (approx)
+
+# Vacuum energy density from Higgs field (simplified)
+rho_vac_particles = (m_H**4 + m_t**4 + m_nu**4) * 1e9  # in J/m³
+
+# Predicted Λ from QFT
+Lambda_QFT = (8 * pi * G * rho_vac_particles) / c**2
+
+# Discrepancy
+Delta_Lambda = Lambda_QFT - Lambda
+
+# Epoch particles
+if Omega < 1e10:
+    dominant_particles = "Inflaton field, quantum fluctuations"
+elif Omega < 1e60:
+    dominant_particles = "Photons, baryons, neutrinos"
+elif Omega < 1e120:
+    dominant_particles = "Dark energy, relic neutrinos"
+else:
+    dominant_particles = "Vacuum modes, horizon states"
+
