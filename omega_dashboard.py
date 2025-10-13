@@ -1,6 +1,4 @@
-Python 3.9.5 (tags/v3.9.5:0a7dcbd, May  3 2021, 17:27:52) [MSC v.1928 64 bit (AMD64)] on win32
-Type "help", "copyright", "credits" or "license()" for more information.
->>> import streamlit as st
+import streamlit as st
 import numpy as np
 
 # === Constants ===
@@ -40,4 +38,5 @@ st.write(f"Λ (Cosmological Constant): {Lambda:.2e} 1/m²")
 st.write(f"TΛ (Horizon Temperature): {T_Lambda:.2e} K")
 st.write(f"Entropy (S): {S:.2e} kB units")
 st.write(f"Information Capacity: {I:.2f} bits")
+
 st.write(f"Predicted Outcome: **{outcome}**")
