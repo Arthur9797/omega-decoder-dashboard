@@ -1,42 +1,95 @@
 import streamlit as st
 import numpy as np
 
-# === Constants ===
-G = 6.67430e-11         # Gravitational constant
-hbar = 1.054571817e-34  # Reduced Planck constant
-c = 3e8                 # Speed of light
-kB = 1.380649e-23       # Boltzmann constant
+# === Fundamental Constants ===
+G = 6.67430e-11         # Gravitational constant (m^3/kg/s^2)
+hbar = 1.054571817e-34  # Reduced Planck constant (J·s)
+c = 3e8                 # Speed of light (m/s)
+kB = 1.380649e-23       # Boltzmann constant (J/K)
+pi = np.pi
 
 # === Decoder Function ===
 def decode_universe(Omega):
+    # Cosmological constant
     Lambda = (G * hbar * c**5) / (kB**2 * Omega)
-    T_Lambda = c * (Lambda**0.5) / kB
-    S = Omega * kB
-    I = np.log2(Omega)
 
+    # Horizon temperature
+    T_Lambda = c * np.sqrt(Lambda) / kB
+
+    # Horizon radius
+    R_horizon = np.sqrt(3 / Lambda)
+
+    # Horizon area
+    A_horizon = 4 * pi * R_horizon**2
+
+    # Horizon entropy (Bekenstein-Hawking)
+    S_horizon = (kB * A_horizon) / (4 * G * hbar / c**3)
+
+    # Energy density (vacuum)
+    rho_vac = (Lambda * c**2) / (8 * pi * G)
+
+    # Information capacity
+    I_bits = np.log2(Omega)
+
+    # Curvature scale
+    curvature_radius = 1 / np.sqrt(Lambda)
+
+    # Epoch classification
     if Omega < 1e10:
-        outcome = "Inflationary origin — low entropy, quantum coherent"
+        epoch = "Inflationary origin — quantum coherent, low entropy"
+        fate = "Rapid expansion, symmetry breaking"
     elif Omega < 1e60:
-        outcome = "Matter-dominated era — entropy growing"
+        epoch = "Matter-dominated era — structure formation"
+        fate = "Entropy accumulation, galaxy evolution"
     elif Omega < 1e120:
-        outcome = "Dark energy era — accelerating expansion"
+        epoch = "Dark energy era — accelerated expansion"
+        fate = "Dilution of matter, horizon isolation"
     else:
-        outcome = "Thermodynamic saturation — cosmic heat death"
+        epoch = "Thermodynamic saturation — cosmic heat death"
+        fate = "Entropy maximum, quantum freeze-out"
 
-    return Lambda, T_Lambda, S, I, outcome
+    return {
+        "Ω (Input)": Omega,
+        "Λ (Cosmological Constant)": Lambda,
+        "TΛ (Horizon Temperature)": T_Lambda,
+        "R_horizon (Horizon Radius)": R_horizon,
+        "A_horizon (Horizon Area)": A_horizon,
+        "S_horizon (Horizon Entropy)": S_horizon,
+        "ρ_vac (Vacuum Energy Density)": rho_vac,
+        "I_bits (Information Capacity)": I_bits,
+        "Curvature Radius": curvature_radius,
+        "Epoch": epoch,
+        "Predicted Cosmic Fate": fate
+    }
 
 # === Streamlit UI ===
+st.set_page_config(page_title="Ω Decoder Dashboard", layout="wide")
 st.title("Ω Decoder Dashboard")
-st.markdown("Explore the thermodynamic evolution of the universe by adjusting the cosmic constant Ω.")
+st.markdown("""
+Explore the thermodynamic architecture of the universe by adjusting the cosmic constant Ω.  
+This dashboard decodes Ω into physical parameters, entropy, curvature, and cosmic fate.
+""")
 
 Omega = st.slider("Select Ω", min_value=1e0, max_value=1e130, value=1e120, format="%.1e")
 
-Lambda, T_Lambda, S, I, outcome = decode_universe(Omega)
+results = decode_universe(Omega)
 
-st.subheader("Decoded Parameters")
-st.write(f"Λ (Cosmological Constant): {Lambda:.2e} 1/m²")
-st.write(f"TΛ (Horizon Temperature): {T_Lambda:.2e} K")
-st.write(f"Entropy (S): {S:.2e} kB units")
-st.write(f"Information Capacity: {I:.2f} bits")
+st.subheader("Decoded Cosmological Parameters")
+for key, value in results.items():
+    if isinstance(value, float):
+        st.write(f"**{key}**: {value:.3e}")
+    else:
+        st.write(f"**{key}**: {value}")
 
-st.write(f"Predicted Outcome: **{outcome}**")
+# === Scientific Notes ===
+st.markdown("---")
+st.markdown("### 🔬 Scientific Notes")
+st.markdown("""
+- **Λ (Cosmological Constant)**: Governs the vacuum energy density and expansion rate of spacetime.  
+- **TΛ (Horizon Temperature)**: The temperature associated with the cosmological horizon, derived from de Sitter thermodynamics.  
+- **S_horizon**: Entropy stored on the horizon surface, proportional to its area — a key insight from black hole thermodynamics.  
+- **ρ_vac**: Energy density of empty space, driving accelerated expansion.  
+- **Curvature Radius**: Sets the scale of spacetime curvature — smaller values imply stronger curvature.  
+- **I_bits**: Total information capacity of the observable universe, in bits.  
+- **Epoch & Fate**: Interprets Ω to classify the cosmic era and predict long-term evolution.
+""")
