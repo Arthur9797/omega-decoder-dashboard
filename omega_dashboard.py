@@ -153,5 +153,3 @@ st.markdown("""
 - **Model Toggle**: Switch between cosmological scenarios to explore different futures  
 - **Particle Energy Plot**: Shows how each field contributes to vacuum energy  
 """)
-
-
