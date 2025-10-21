@@ -197,4 +197,6 @@ st.markdown("""
 - **Tunneling probability** estimates quantum escape near black holes  
 - **Gravitational lensing** distorts quantum fields around massive objects  
 - **Decoherence** increases near event horizons due to curvature-induced phase loss  
-- **Entanglement** weakens over time in curved spacetime due to
+- **Entanglement** weakens over time in curved spacetime due to information leakage  
+- **
+
