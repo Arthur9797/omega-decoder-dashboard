@@ -196,7 +196,4 @@ st.markdown("""
 - **Wave packet dispersion** shows how quantum fields stretch in curved spacetime  
 - **Tunneling probability** estimates quantum escape near black holes  
 - **Gravitational lensing** distorts quantum fields around massive objects  
-- **Decoherence** increases near event horizons due to curvature-induced phase loss  
-- **Entanglement** weakens over time in curved spacetime due to information leakage  
-- **
-
+- **Decoherence** increases near event horizons due
