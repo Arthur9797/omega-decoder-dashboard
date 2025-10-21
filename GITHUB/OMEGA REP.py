@@ -28,10 +28,6 @@ gev_to_joule_m3 = 1.7827e-36 * (1e9)**4
 def schwarzschild_radius(M):
     return 2 * G * M / c**2
 
-def gravitational_potential(r, M):
-    rs = schwarzschild_radius(M)
-    return -G * M / r * (1 - rs / r)
-
 # === Quantum–Relativity Bridge via Ω ===
 def decode_universe(Omega):
     Lambda = (G * hbar * c**5) / (k**2 * Omega)
@@ -73,7 +69,7 @@ def decode_universe(Omega):
         "Particle Energy": particle_energy
     }
 
-# === Wave Packet Dispersion in Curved Spacetime ===
+# === Simulations ===
 def simulate_wave_packet(curvature_radius):
     x = np.linspace(-1e3, 1e3, 1000)
     sigma = curvature_radius / 10
@@ -83,7 +79,6 @@ def simulate_wave_packet(curvature_radius):
     prob_density = np.abs(psi_t)**2
     return x, prob_density
 
-# === Quantum Tunneling Near Gravitational Wells ===
 def tunneling_probability(M):
     rs = schwarzschild_radius(M)
     barrier_height = G * M / rs
@@ -91,7 +86,6 @@ def tunneling_probability(M):
     prob = np.exp(-2 * np.sqrt(2 * M * (barrier_height - energy)) * rs / hbar)
     return prob
 
-# === Gravitational Lensing Animation ===
 def lensing_field():
     theta = np.linspace(-2, 2, 400)
     mass = 1e30
@@ -99,20 +93,17 @@ def lensing_field():
     field = np.exp(-theta**2) * np.cos(10 * theta - alpha)
     return theta, field
 
-# === Quantum Decoherence Near Event Horizon ===
 def decoherence_profile(M):
     rs = schwarzschild_radius(M)
     r = np.linspace(rs * 1.01, rs * 10, 500)
     coherence = np.exp(-((r - rs) / rs)**2)
     return r, coherence
 
-# === Entanglement Degradation in Curved Spacetime ===
 def entanglement_degradation(curvature_radius):
     t = np.linspace(0, 1e3, 500)
     degradation = np.exp(-t / curvature_radius)
     return t, degradation
 
-# === Hawking Radiation Simulation ===
 def hawking_radiation(M):
     T_hawking = hbar * c**3 / (8 * np.pi * G * M * k)
     freq = np.linspace(1e11, 1e14, 500)
@@ -122,20 +113,17 @@ def hawking_radiation(M):
 # === Streamlit UI ===
 st.set_page_config(page_title="Ω Quantum–Relativity Dashboard", layout="wide")
 st.title("Ω Quantum–Relativity Dashboard")
-st.markdown("Explore the quantum structure of spacetime through Ω, Schwarzschild curvature, and wave dynamics.")
 
 Omega = st.slider("Select Ω", min_value=1e0, max_value=1e130, value=1e120, format="%.1e")
 mass_slider = st.slider("Mass of Gravitational Well (kg)", min_value=1e24, max_value=1e32, value=1e30, format="%.1e")
 
 results = decode_universe(Omega)
 
-# === Display Parameters ===
 st.subheader("Decoded Cosmological Parameters")
 for key, value in results.items():
     if key != "Particle Energy":
         st.write(f"**{key}**: {value:.3e}" if isinstance(value, float) else f"**{key}**: {value}")
 
-# === Particle Vacuum Energy Plot ===
 st.subheader("🔬 Particle Vacuum Energy Contributions")
 fig = go.Figure()
 fig.add_trace(go.Bar(
@@ -151,7 +139,6 @@ fig.update_layout(
 )
 st.plotly_chart(fig, use_container_width=True)
 
-# === Wave Packet Dispersion Plot ===
 st.subheader("🌊 Wave Packet Dispersion in Curved Spacetime")
 x, prob_density = simulate_wave_packet(results["Curvature Radius"])
 fig2, ax2 = plt.subplots()
@@ -161,12 +148,10 @@ ax2.set_xlabel("Position (m)")
 ax2.set_ylabel("Probability Density")
 st.pyplot(fig2)
 
-# === Quantum Tunneling Probability ===
 st.subheader("🕳️ Quantum Tunneling Near Gravitational Well")
 tunnel_prob = tunneling_probability(mass_slider)
 st.write(f"**Tunneling Probability** near Schwarzschild radius: {tunnel_prob:.3e}")
 
-# === Gravitational Lensing Animation ===
 st.subheader("🔭 Gravitational Lensing of Quantum Field")
 theta, field = lensing_field()
 fig3, ax3 = plt.subplots()
@@ -176,7 +161,6 @@ ax3.set_xlabel("Angular Position θ")
 ax3.set_ylabel("Field Intensity")
 st.pyplot(fig3)
 
-# === Quantum Decoherence Near Horizon ===
 st.subheader("🧨 Quantum Decoherence Near Event Horizon")
 r, coherence = decoherence_profile(mass_slider)
 fig4, ax4 = plt.subplots()
@@ -186,11 +170,29 @@ ax4.set_xlabel("Radial Distance (m)")
 ax4.set_ylabel("Coherence")
 st.pyplot(fig4)
 
-# === Entanglement Degradation ===
 st.subheader("🔗 Entanglement Degradation in Curved Spacetime")
 t, degradation = entanglement_degradation(results["Curvature Radius"])
 fig5, ax5 = plt.subplots()
 ax5.plot(t, degradation, color='red')
 ax5.set_title("Entanglement Degradation Over Time")
-ax5.set_xlabel("Time (s
+ax5.set_xlabel("Time (s)")
+ax5.set_ylabel("Entanglement Strength")
+st.pyplot(fig5)
 
+st.subheader("🔥 Hawking Radiation Spectrum")
+freq, spectrum, T_hawking = hawking_radiation(mass_slider)
+fig6, ax6 = plt.subplots()
+ax6.plot(freq, spectrum, color='black')
+ax6.set_title(f"Hawking Radiation Spectrum (T = {T_hawking:.2e} K)")
+ax6.set_xlabel("Frequency (Hz)")
+ax6.set_ylabel("Spectral Intensity")
+st.pyplot(fig6)
+
+st.markdown("---")
+st.markdown("### 🧠 Scientific Notes")
+st.markdown("""
+- **Ω** links quantum entropy to spacetime curvature via Λ  
+- **Schwarzschild radius** defines gravitational wells and tunneling barriers  
+- **Wave packet dispersion** shows how quantum fields stretch in curved spacetime  
+- **Tunneling probability** estimates quantum escape near black holes  
+- **Gravitational lensing** distorts quantum fields around massive objects
