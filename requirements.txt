@@ -2,5 +2,5 @@ streamlit
 numpy
 matplotlib
 plotly
-scipy
+scipy>=1.10.0
 
