@@ -193,4 +193,10 @@ st.markdown("### 🧠 Scientific Notes")
 st.markdown("""
 - **Ω** links quantum entropy to spacetime curvature via Λ  
 - **Schwarzschild radius** defines gravitational wells and tunneling barriers  
--
+- **Wave packet dispersion** shows how quantum fields stretch in curved spacetime  
+- **Tunneling probability** estimates quantum escape near black holes  
+- **Gravitational lensing** distorts quantum fields around massive objects  
+- **Decoherence** increases near event horizons due to curvature-induced phase loss  
+- **Entanglement** weakens over time in curved spacetime due to information leakage  
+- **Hawking radiation** emits particles from black holes, with temperature inversely proportional to mass  
+""")
