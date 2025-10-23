@@ -9,6 +9,7 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
+import scipy
 from scipy.constants import G, hbar, c, k
 from scipy.integrate import simps
 
@@ -200,3 +201,4 @@ st.markdown("""
 - **Entanglement** weakens over time in curved spacetime due to information leakage  
 - **Hawking radiation** emits particles from black holes, with temperature inversely proportional to mass  
 """)
+
