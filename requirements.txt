@@ -1,6 +1,0 @@
-streamlit
-numpy
-matplotlib
-plotly
-scipy>=1.10.0
-
