@@ -186,7 +186,6 @@ ax6.set_xlabel("Frequency (Hz)")
 ax6.set_ylabel("Spectral Intensity")
 st.pyplot(fig6)
 
-
 st.markdown("---")
 st.markdown("### 🧠 Scientific Notes")
 st.markdown("""
@@ -199,6 +198,7 @@ st.markdown("""
 - **Entanglement** weakens over time in curved spacetime due to information leakage  
 - **Hawking radiation** emits particles from black holes, with temperature inversely proportional to mass  
 """)
+
 
 
 
