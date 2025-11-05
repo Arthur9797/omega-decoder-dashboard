@@ -141,7 +141,7 @@ st.plotly_chart(fig, use_container_width=True)
 
 st.subheader("🌊 Wave Packet Dispersion in Curved Spacetime")
 x, prob_density = simulate_wave_packet(results["Curvature Radius"])
-fig2, ax2 = plt.subplots()
+fig2, ax2 = plt.subplots(figsize=(5, 3))
 ax2.plot(x, prob_density, color='darkgreen')
 ax2.set_title("Wave Packet Dispersion")
 ax2.set_xlabel("Position (m)")
@@ -154,7 +154,7 @@ st.write(f"**Tunneling Probability** near Schwarzschild radius: {tunnel_prob:.3e
 
 st.subheader("🔭 Gravitational Lensing of Quantum Field")
 theta, field = lensing_field()
-fig3, ax3 = plt.subplots()
+fig3, ax3 = plt.subplots(figsize=(5, 3))
 ax3.plot(theta, field, color='purple')
 ax3.set_title("Gravitational Lensing Effect on Quantum Field")
 ax3.set_xlabel("Angular Position θ")
@@ -163,7 +163,7 @@ st.pyplot(fig3)
 
 st.subheader("🧨 Quantum Decoherence Near Event Horizon")
 r, coherence = decoherence_profile(mass_slider)
-fig4, ax4 = plt.subplots()
+fig4, ax4 = plt.subplots(figsize=(5, 3))
 ax4.plot(r, coherence, color='orange')
 ax4.set_title("Decoherence Profile Near Schwarzschild Radius")
 ax4.set_xlabel("Radial Distance (m)")
@@ -172,7 +172,7 @@ st.pyplot(fig4)
 
 st.subheader("🔗 Entanglement Degradation in Curved Spacetime")
 t, degradation = entanglement_degradation(results["Curvature Radius"])
-fig5, ax5 = plt.subplots()
+fig5, ax5 = plt.subplots(figsize=(5, 3))
 ax5.plot(t, degradation, color='red')
 ax5.set_title("Entanglement Degradation Over Time")
 ax5.set_xlabel("Time (s)")
@@ -181,7 +181,7 @@ st.pyplot(fig5)
 
 st.subheader("🔥 Hawking Radiation Spectrum")
 freq, spectrum, T_hawking = hawking_radiation(mass_slider)
-fig6, ax6 = plt.subplots()
+fig6, ax6 = plt.subplots(figsize=(5, 3))
 ax6.plot(freq, spectrum, color='black')
 ax6.set_title(f"Hawking Radiation Spectrum (T = {T_hawking:.2e} K)")
 ax6.set_xlabel("Frequency (Hz)")
@@ -200,4 +200,5 @@ st.markdown("""
 - **Entanglement** weakens over time in curved spacetime due to information leakage  
 - **Hawking radiation** emits particles from black holes, with temperature inversely proportional to mass  
 """)
+
 
