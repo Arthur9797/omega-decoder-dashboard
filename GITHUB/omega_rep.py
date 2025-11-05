@@ -24,11 +24,9 @@ masses = {
 
 gev_to_joule_m3 = 1.7827e-36 * (1e9)**4
 
-# === Schwarzschild Geometry ===
 def schwarzschild_radius(M):
     return 2 * G * M / c**2
 
-# === Quantum–Relativity Bridge via Ω ===
 def decode_universe(Omega):
     Lambda = (G * hbar * c**5) / (k**2 * Omega)
     T_Lambda = c * np.sqrt(Lambda) / k
@@ -69,7 +67,6 @@ def decode_universe(Omega):
         "Particle Energy": particle_energy
     }
 
-# === Simulations ===
 def simulate_wave_packet(curvature_radius):
     x = np.linspace(-1e3, 1e3, 1000)
     sigma = curvature_radius / 10
@@ -86,9 +83,8 @@ def tunneling_probability(M):
     prob = np.exp(-2 * np.sqrt(2 * M * (barrier_height - energy)) * rs / hbar)
     return prob
 
-def lensing_field():
+def lensing_field(mass):
     theta = np.linspace(-2, 2, 400)
-    mass = 1e30
     alpha = 4 * G * mass / (c**2 * theta)
     field = np.exp(-theta**2) * np.cos(10 * theta - alpha)
     return theta, field
@@ -116,6 +112,8 @@ st.title("Ω Quantum–Relativity Dashboard")
 
 Omega = st.slider("Select Ω", min_value=1e0, max_value=1e130, value=1e120, format="%.1e")
 mass_slider = st.slider("Mass of Gravitational Well (kg)", min_value=1e24, max_value=1e32, value=1e30, format="%.1e")
+lensing_mass = st.slider("Lensing Mass (kg)", min_value=1e28, max_value=1e32, value=1e30, format="%.1e")
+curvature_radius_override = st.slider("Override Curvature Radius (m)", min_value=1e1, max_value=1e6, value=1e3.0, format="%.1e")
 
 results = decode_universe(Omega)
 
@@ -140,8 +138,8 @@ fig.update_layout(
 st.plotly_chart(fig, use_container_width=True)
 
 st.subheader("🌊 Wave Packet Dispersion in Curved Spacetime")
-x, prob_density = simulate_wave_packet(results["Curvature Radius"])
-fig2, ax2 = plt.subplots(figsize=(5, 3))
+x, prob_density = simulate_wave_packet(curvature_radius_override)
+fig2, ax2 = plt.subplots(figsize=(3, 1.8))
 ax2.plot(x, prob_density, color='darkgreen')
 ax2.set_title("Wave Packet Dispersion")
 ax2.set_xlabel("Position (m)")
@@ -153,40 +151,41 @@ tunnel_prob = tunneling_probability(mass_slider)
 st.write(f"**Tunneling Probability** near Schwarzschild radius: {tunnel_prob:.3e}")
 
 st.subheader("🔭 Gravitational Lensing of Quantum Field")
-theta, field = lensing_field()
-fig3, ax3 = plt.subplots(figsize=(5, 3))
+theta, field = lensing_field(lensing_mass)
+fig3, ax3 = plt.subplots(figsize=(3, 1.8))
 ax3.plot(theta, field, color='purple')
-ax3.set_title("Gravitational Lensing Effect on Quantum Field")
+ax3.set_title("Gravitational Lensing Effect")
 ax3.set_xlabel("Angular Position θ")
 ax3.set_ylabel("Field Intensity")
 st.pyplot(fig3)
 
 st.subheader("🧨 Quantum Decoherence Near Event Horizon")
 r, coherence = decoherence_profile(mass_slider)
-fig4, ax4 = plt.subplots(figsize=(5, 3))
+fig4, ax4 = plt.subplots(figsize=(3, 1.8))
 ax4.plot(r, coherence, color='orange')
-ax4.set_title("Decoherence Profile Near Schwarzschild Radius")
+ax4.set_title("Decoherence Profile")
 ax4.set_xlabel("Radial Distance (m)")
 ax4.set_ylabel("Coherence")
 st.pyplot(fig4)
 
 st.subheader("🔗 Entanglement Degradation in Curved Spacetime")
-t, degradation = entanglement_degradation(results["Curvature Radius"])
-fig5, ax5 = plt.subplots(figsize=(5, 3))
+t, degradation = entanglement_degradation(curvature_radius_override)
+fig5, ax5 = plt.subplots(figsize=(3, 1.8))
 ax5.plot(t, degradation, color='red')
-ax5.set_title("Entanglement Degradation Over Time")
+ax5.set_title("Entanglement Degradation")
 ax5.set_xlabel("Time (s)")
 ax5.set_ylabel("Entanglement Strength")
 st.pyplot(fig5)
 
 st.subheader("🔥 Hawking Radiation Spectrum")
 freq, spectrum, T_hawking = hawking_radiation(mass_slider)
-fig6, ax6 = plt.subplots(figsize=(5, 3))
+fig6, ax6 = plt.subplots(figsize=(3, 1.8))
 ax6.plot(freq, spectrum, color='black')
-ax6.set_title(f"Hawking Radiation Spectrum (T = {T_hawking:.2e} K)")
+ax6.set_title(f"Hawking Radiation (T = {T_hawking:.2e} K)")
 ax6.set_xlabel("Frequency (Hz)")
 ax6.set_ylabel("Spectral Intensity")
 st.pyplot(fig6)
+
 
 st.markdown("---")
 st.markdown("### 🧠 Scientific Notes")
@@ -200,5 +199,6 @@ st.markdown("""
 - **Entanglement** weakens over time in curved spacetime due to information leakage  
 - **Hawking radiation** emits particles from black holes, with temperature inversely proportional to mass  
 """)
+
 
 
