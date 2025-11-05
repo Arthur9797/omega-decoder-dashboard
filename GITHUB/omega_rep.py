@@ -113,7 +113,7 @@ st.title("Ω Quantum–Relativity Dashboard")
 Omega = st.slider("Select Ω", min_value=1e0, max_value=1e130, value=1e120, format="%.1e")
 mass_slider = st.slider("Mass of Gravitational Well (kg)", min_value=1e24, max_value=1e32, value=1e30, format="%.1e")
 lensing_mass = st.slider("Lensing Mass (kg)", min_value=1e28, max_value=1e32, value=1e30, format="%.1e")
-curvature_radius_override = st.slider("Override Curvature Radius (m)", min_value=1e1, max_value=1e6, value=1e3.0, format="%.1e")
+curvature_radius_override = st.slider("Override Curvature Radius (m)", min_value=1e1, max_value=1e6, value=1e3, format="%.1e")
 
 results = decode_universe(Omega)
 
@@ -198,6 +198,7 @@ st.markdown("""
 - **Entanglement** weakens over time in curved spacetime due to information leakage  
 - **Hawking radiation** emits particles from black holes, with temperature inversely proportional to mass  
 """)
+
 
 
 
